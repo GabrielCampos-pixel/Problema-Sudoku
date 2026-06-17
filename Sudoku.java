@@ -1,6 +1,6 @@
 public class Sudoku {
-    private int N;              // Tamanho do tabuleiro (9 ou 16)
-    private int blockSize;      // Tamanho do bloco (3 ou 4)
+    private int N;
+    private int blockSize;
 
     private long recursividadeMRV = 0;
     private long recursividadeColoracao = 0;
@@ -13,8 +13,6 @@ public class Sudoku {
     private boolean ehSeguro(int[][] tabuleiro, int linha, int coluna, int num) {
         for (int x = 0; x < N; x++) {
             if (tabuleiro[linha][x] == num) return false;
-        }
-        for (int x = 0; x < N; x++) {
             if (tabuleiro[x][coluna] == num) return false;
         }
         int inicioLinha = (linha / blockSize) * blockSize;
@@ -60,7 +58,7 @@ public class Sudoku {
     }
 
     private boolean resolverComHeuristica(int[][] tabuleiro) {
-        recursividadeMRV++;
+        recursividadeMRV++;    
         int[] celula = encontrarMelhorCelula(tabuleiro);
         int linha = celula[0];
         int coluna = celula[1];
@@ -101,11 +99,10 @@ public class Sudoku {
     }
 
     private void imprimirEstatisticas() {
-        System.out.println("Estatisticas");
+        System.out.println("Estatisticas ");
         System.out.println("Heuristica MRV foi utilizado: Recursoes: " + recursividadeMRV);
-        System.out.println("Coloraçao + Heuristica foi utilizado: Recursoes: " + recursividadeColoracao);
+        System.out.println("Coloracao + Heuristica foi utilizado: Recursoes: " + recursividadeColoracao);
     }
-
     public static void main(String[] args) {
         int[] tamanhos = {9, 16};
         for (int tam : tamanhos) {
@@ -118,14 +115,14 @@ public class Sudoku {
             long inicio = System.currentTimeMillis();
             boolean resolvidoMRV = sudoku.resolverComHeuristica(copia1);
             long tempoMRV = System.currentTimeMillis() - inicio;
-            System.out.println("\n Resolvido com Heurística MRV em " + tempoMRV + " ms");
+            System.out.println("\n Resolvido com Heuristica MRV em " + tempoMRV + " ms");
             sudoku.imprimirTabuleiro(copia1);
             sudoku = new Sudoku(tam);
             int[][] copia2 = copiarTabuleiro(tabuleiro);
             inicio = System.currentTimeMillis();
             boolean resolvidoGrafos = sudoku.resolverColoracaoGrafos(copia2);
             long tempoGrafos = System.currentTimeMillis() - inicio;
-            System.out.println("\n Resolvido com Coloração + Heurística em " + tempoGrafos + " ms");
+            System.out.println("\n Resolvido com Coloraçao + Heuristica em " + tempoGrafos + " ms");
             sudoku.imprimirTabuleiro(copia2);
             sudoku.imprimirEstatisticas();
         }
@@ -134,15 +131,9 @@ public class Sudoku {
     private static int[][] gerarTabuleiroExemplo(int tam) {
         if (tam == 9) {
             return new int[][]{
-                {5, 3, 0, 0, 7, 0, 0, 0, 0},
-                {6, 0, 0, 1, 9, 5, 0, 0, 0},
-                {0, 9, 8, 0, 0, 0, 0, 6, 0},
-                {8, 0, 0, 0, 6, 0, 0, 0, 3},
-                {4, 0, 0, 8, 0, 3, 0, 0, 1},
-                {7, 0, 0, 0, 2, 0, 0, 0, 6},
-                {0, 6, 0, 0, 0, 0, 2, 8, 0},
-                {0, 0, 0, 4, 1, 9, 0, 0, 5},
-                {0, 0, 0, 0, 8, 0, 0, 7, 9}
+                {5,3,0,0,7,0,0,0,0},{6,0,0,1,9,5,0,0,0},{0,9,8,0,0,0,0,6,0},
+                {8,0,0,0,6,0,0,0,3},{4,0,0,8,0,3,0,0,1},{7,0,0,0,2,0,0,0,6},
+                {0,6,0,0,0,0,2,8,0},{0,0,0,4,1,9,0,0,5},{0,0,0,0,8,0,0,7,9}
             };
         } else {
             int[][] tab = new int[16][16];
